@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
+	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"strings"
-	"io/ioutil"
-	"net/http"
-	"net/url"
 )
 
 type speech struct {
@@ -58,7 +58,7 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		path := strings.Split(r.URL.Path, "/")
 		if path[1] == "speak" {
-      log.Println("REQUEST - ", r)
+			log.Println("REQUEST - ", r)
 			text := path[3]
 			voice := path[2]
 			w.Header().Add("Content-Type", "audio/mp4")
